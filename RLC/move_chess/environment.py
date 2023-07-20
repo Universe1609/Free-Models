@@ -17,7 +17,7 @@ class Board(object):
         else:
             episode_end = False
             old_state = self.state
-            new_state = (self.state[0] + action[0], self.state[1] + action[1])  # step
+            new_state = (self.state[0] + action[0], self.state[1] + action[1])
             self.state = old_state if np.min(new_state) < 0 or np.max(new_state) > 7 else new_state
             return reward, episode_end
 
