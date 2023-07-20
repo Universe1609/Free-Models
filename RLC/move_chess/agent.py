@@ -5,11 +5,6 @@ import pprint
 class Piece(object):
 
     def __init__(self, piece='king'):
-        """
-        A Chess agent
-        Args:
-            piece: (str) king, knight, bishop or rook
-        """
         self.piece = piece
         self.init_actionspace()
         self.value_function = np.zeros(shape=(8, 8))
@@ -22,16 +17,6 @@ class Piece(object):
         self.policy_prev = self.policy.copy()
 
     def apply_policy(self, state, epsilon):
-        """
-        Apply the policy of the agent
-        Args:
-            state: tuple of length 2
-            epsilon: exploration probability, 0 for greedy behavior, 1 for pure exploration
-
-        Returns:
-            the selected action for the state under the current policy
-
-        """
         greedy_action_value = np.max(self.policy[state[0], state[1], :])
         greedy_indices = [i for i, a in enumerate(self.policy[state[0], state[1], :]) if
                           a == greedy_action_value]
@@ -47,35 +32,35 @@ class Piece(object):
         assert self.piece in ["king", "rook", "bishop",
                               "knight"], f"{self.piece} is not a supported piece try another one"
         if self.piece == 'king':
-            self.action_space = [(-1, 0),  # north
-                                 (-1, 1),  # north-west
-                                 (0, 1),  # west
-                                 (1, 1),  # south-west
-                                 (1, 0),  # south
-                                 (1, -1),  # south-east
-                                 (0, -1),  # east
-                                 (-1, -1),  # north-east
+            self.action_space = [(-1, 0),  
+                                 (-1, 1),  
+                                 (0, 1),  
+                                 (1, 1),  
+                                 (1, 0),  
+                                 (1, -1),  
+                                 (0, -1),  
+                                 (-1, -1),  
                                  ]
         elif self.piece == 'rook':
             self.action_space = []
             for amplitude in range(1, 8):
-                self.action_space.append((-amplitude, 0))  # north
-                self.action_space.append((0, amplitude))  # east
-                self.action_space.append((amplitude, 0))  # south
-                self.action_space.append((0, -amplitude))  # west
+                self.action_space.append((-amplitude, 0))  
+                self.action_space.append((0, amplitude))  
+                self.action_space.append((amplitude, 0))  
+                self.action_space.append((0, -amplitude))  
         elif self.piece == 'knight':
-            self.action_space = [(-2, 1),  # north-north-west
-                                 (-1, 2),  # n-w-w
-                                 (1, 2),  # s-w-w
-                                 (2, 1),  # s-s-w
-                                 (2, -1),  # s-s-e
-                                 (1, -2),  # s-e-e
-                                 (-1, -2),  # n-e-e
-                                 (-2, -1)]  # n-n-e
+            self.action_space = [(-2, 1),  
+                                 (-1, 2), 
+                                 (1, 2),  
+                                 (2, 1),
+                                 (2, -1),   
+                                 (1, -2),  
+                                 (-1, -2),  
+                                 (-2, -1)]  
         elif self.piece == 'bishop':
             self.action_space = []
             for amplitude in range(1, 8):
-                self.action_space.append((-amplitude, amplitude))  # north-west
-                self.action_space.append((amplitude, amplitude))  # south-west
-                self.action_space.append((amplitude, -amplitude))  # south-east
-                self.action_space.append((-amplitude, -amplitude))  # north
+                self.action_space.append((-amplitude, amplitude))  
+                self.action_space.append((amplitude, amplitude))  
+                self.action_space.append((amplitude, -amplitude))  
+                self.action_space.append((-amplitude, -amplitude))  # 
