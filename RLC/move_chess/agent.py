@@ -5,16 +5,17 @@ import pprint
 class Piece(object):
 
     def __init__(self, piece='king'):
-        self.piece = piece
-        self.init_actionspace()
-        self.value_function = np.zeros(shape=(8, 8))
-        self.value_function_prev = self.value_function.copy()
-        self.N = np.zeros(shape=(8, 8))
-        self.E = np.zeros(shape=(8, 8))
-        self.Returns = {}
-        self.action_function = np.zeros(shape=(8, 8, len(self.action_space)))
-        self.policy = np.zeros(shape=self.action_function.shape)
-        self.policy_prev = self.policy.copy()
+        self.piece = piece  # Guarda el tipo de pieza de ajedrez representada por el agente
+        self.init_actionspace()  # Inicializa el espacio de acciones del agente según el tipo de pieza
+        self.value_function = np.zeros(shape=(8, 8))  # Inicializa la función de valor con una matriz de ceros
+        self.value_function_prev = self.value_function.copy()  # Copia la función de valor en una versión anterior
+        self.N = np.zeros(shape=(8, 8))  # Inicializa la matriz de conteo de visitas
+        self.E = np.zeros(shape=self.agent.action_function.shape)  # Inicializa la traza de elegibilidad con ceros
+        self.Returns = {}  # Inicializa el diccionario de retornos para el aprendizaje Monte Carlo
+        self.action_function = np.zeros(shape=(8, 8, len(self.action_space)))  # Inicializa la función de acción con ceros
+        self.policy = np.zeros(shape=self.action_function.shape)  # Inicializa la política con ceros
+        self.policy_prev = self.policy.copy()  # Copia la política en una versión anterior
+
 
     #Aplicamos la política en un estado para determinar la accion a tomar
     #esto es a lo que llamamos politica epsilon-greedy
